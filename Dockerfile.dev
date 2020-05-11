@@ -1,0 +1,11 @@
+FROM node:alpine3.10
+
+WORKDIR '/app'
+
+COPY package.json /app/
+RUN npm install
+ENV NODE_PATH=/app/node_modules
+COPY . .
+
+#CMD bash ./start.sh
+CMD ["npm", "run", "start"]
