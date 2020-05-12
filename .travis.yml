@@ -2,21 +2,26 @@ language: generic
 sudo: required
 services:
   - docker
-
-before_install:
-  - docker build -t ldcamachoc/docker-react -f Dockerfile.dev .
-
-script:
-  - docker run -e CI=true ldcamachoc/docker-react npm run test
-
-deploy:
-  provider: elasticbeanstalk
-  region: "us-east-1"
-  app: "docker-react-2"
-  env: "DockerReact2-env"
-  bucket_name: "elasticbeanstalk-us-east-1-189137563013"
-  bucket_path: "docker-react-2"
-  on:
-    branch: master
-  access_key_id: $AWS_ACCESS_KEY
-  secret_access_key: $AWS_SECRET_KEY
+jobs:
+  include:
+    - stage: docker-deploy-image
+      script:
+        - echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+        - docker build -t ldcamachoc/docker-react -f Dockerfile.dev .
+        - docker push ldcamachoc/docker-react
+    - stage: test
+      script:
+        - docker run -e CI=true ldcamachoc/docker-react npm run test
+    - stage: deploy
+      script: skip
+      deploy:
+        provider: elasticbeanstalk
+        region: "us-east-1"
+        app: "docker-react-2"
+        env: "DockerReact2-env"
+        bucket_name: "elasticbeanstalk-us-east-1-189137563013"
+        bucket_path: "docker-react-2"
+        on:
+          branch: master
+        access_key_id: $AWS_ACCESS_KEY
+        secret_access_key: $AWS_SECRET_KEY
