@@ -40,4 +40,5 @@ jobs:
           push: true       
       -
         name: test
-        run: docker run -e CI=true ldcamachoc/docker-react:1.0.0 npm run test
+        #run: docker run -e CI=true ldcamachoc/docker-react:1.0.0 npm run test
+        run: npm run test
