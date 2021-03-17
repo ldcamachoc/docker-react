@@ -28,6 +28,6 @@ jobs:
           context: .
           file: Dockerfile.dev         
           tags: ldcamachoc/docker-react:latest, ldcamachoc/docker-react:1.0.0    
-    -
-      name: test
-      run: docker run -e CI=true ldcamachoc/docker-react npm run test
+      -
+        name: test
+        run: docker run -e CI=true ldcamachoc/docker-react npm run test
