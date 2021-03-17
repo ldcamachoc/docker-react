@@ -6,33 +6,15 @@ on:
   push:
     branches:
       - 'master'
-
 jobs:
   docker-build:
     runs-on: ubuntu-latest
-    
-    strategy:
-      matrix:
-        node-version: [13.x]
-    
     env:
      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
     steps:
       -
         name: Checkout
-        uses: actions/checkout@v2
-      #NodeJS
-      - 
-        name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-      - run: npm install jest --save-dev
-      - run: npm run build --if-present
-      - run: npm test
-        env:
-          CI: true
+        uses: actions/checkout@v2    
       #Docker
       -
         name: Set up QEMU
@@ -60,7 +42,7 @@ jobs:
           file: ./Dockerfile.dev         
           tags: ldcamachoc/docker-react:1.0.0,ldcamachoc/docker-react:latest
           push: true       
-      #-
-        #name: test
-        #run: docker run -e CI=true ldcamachoc/docker-react:1.0.0 npm run test
-        #run: npm run test
+      -
+        name: test
+        run: docker run -e CI=true ldcamachoc/docker-react:1.0.0 npm run test
+        run: npm run test
