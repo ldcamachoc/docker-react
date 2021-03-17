@@ -11,10 +11,25 @@ jobs:
     runs-on: ubuntu-latest
     env:
      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    
+    strategy:
+      matrix:
+        node-version: [12.x]
+
     steps:
       -
         name: Checkout
-        uses: actions/checkout@v2    
+        uses: actions/checkout@v2 
+      #Node.js
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm install
+      - run: npm run build --if-present
+      - run: npm test
+
+
       #Docker
       -
         name: Set up QEMU
@@ -42,7 +57,7 @@ jobs:
           file: ./Dockerfile.dev         
           tags: ldcamachoc/docker-react:1.0.0,ldcamachoc/docker-react:latest
           push: true       
-      -
-        name: test
-        run: docker run -e CI=true ldcamachoc/docker-react:1.0.0 npm run test
+      # -
+      #   name: test
+      #   run: docker run -e CI=true ldcamachoc/docker-react:1.0.0 npm run test
         #run: npm run test
