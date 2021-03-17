@@ -3,11 +3,13 @@
 name: CI
 
 on:
-  schedule:
-    -cron: '02 18 16 4 *'
+  push:
+    branches:
+      - 'master'
 
 jobs:
   docker-build:
+  runs-on: ubuntu-latest
   env:
     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   steps:
