@@ -57,6 +57,7 @@ jobs:
           push: true
       #AWS  
       - name: Elastic Beanstalk Deployment
+        if: success()
         uses: kumarshivam12/Aws-ElasticBeanstalk@v1.3
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
