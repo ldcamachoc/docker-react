@@ -55,31 +55,32 @@ jobs:
           file: ./Dockerfile.dev         
           tags: ldcamachoc/docker-react:1.0.0,ldcamachoc/docker-react:latest
           push: true
-      #AWS  
-      - name: Elastic Beanstalk Deployment
-        if: success()
-        uses: kumarshivam12/Aws-ElasticBeanstalk@v1.3
+      #AWS
+       - 
+        name: Deploy to AWS Elastic Beanstalk
+        uses: Amraneze/aws-beanstalk-deploy@master
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          EB-BUCKET-NAME: elasticbeanstalk-us-east-1-189137563013
-          APPLICATION-NAME: docker-react-app2            
-          EB-ENV-NAME: Dockerreactapp2-env
-          AWS-REGION: us-east-1
-      # - 
-      #   name: Deploy to AWS Elastic Beanstalk
-      #   uses: Amraneze/aws-beanstalk-deploy@master
+          region: "us-east-1"
+          environment_name: "Dockerreactapp2-env"
+          application_name: "docker-react-app2"
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          s3_bucket_name: "elasticbeanstalk-us-east-1-189137563013"
+          s3_file_path: "/docker-react-folder" 
+          ebs_version_label: "1.0.0"
+          ebs_description: "First Version"
+          ebs_wait_for_env_to_be_green: true     
+      # - name: Elastic Beanstalk Deployment
+      #   if: success()
+      #   uses: kumarshivam12/Aws-ElasticBeanstalk@v1.3
       #   with:
-      #     region: "us-east-1"
-      #     environment_name: "Dockerreactapp2-env"
-      #     application_name: "docker-react-app2"
-      #     aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      #     aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      #     s3_bucket_name: "elasticbeanstalk-us-east-1-189137563013"
-      #     s3_file_path: "docker-react-folder" 
-      #     ebs_version_label: "1.0.0"
-      #     ebs_description: "First Version"
-      #     ebs_wait_for_env_to_be_green: true       
+      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #     EB-BUCKET-NAME: elasticbeanstalk-us-east-1-189137563013
+      #     APPLICATION-NAME: docker-react-app2            
+      #     EB-ENV-NAME: Dockerreactapp2-env
+      #     AWS-REGION: us-east-1
+         
       # -
       #   name: test
       #   run: docker run -e CI=true ldcamachoc/docker-react:1.0.0 npm run test
