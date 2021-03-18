@@ -58,7 +58,7 @@ jobs:
       #AWS
       - name: Generate deployment package
         if: success()
-        run: zip -r deploy.zip ./dist/*
+        run: zip -r deploy.zip ./*
 
       - name: Deploy to EB
         if: success()
