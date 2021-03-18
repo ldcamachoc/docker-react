@@ -58,6 +58,7 @@ jobs:
       #AWS
        - 
         name: Deploy to AWS Elastic Beanstalk
+        if: success()
         uses: Amraneze/aws-beanstalk-deploy@master
         with:
           region: "us-east-1"
