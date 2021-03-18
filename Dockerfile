@@ -1,9 +1,15 @@
 FROM node:current-alpine3.10
 WORKDIR '/app'
 COPY package*.json ./
+RUN echo $(ls -1 /app)
 RUN npm install
 COPY . ./
+RUN echo $(ls -1 /app)
+RUN echo "----------"
 RUN npm run build
+RUN echo $(ls -1 /app)
+RUN echo "----------"
+RUN echo $(ls -1 /build)
 
 FROM nginx
 EXPOSE 80
