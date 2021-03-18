@@ -56,7 +56,7 @@ jobs:
           tags: ldcamachoc/docker-react:1.0.0,ldcamachoc/docker-react:latest
           push: true
       #AWS
-       - 
+      - 
         name: Deploy to AWS Elastic Beanstalk
         if: success()
         uses: Amraneze/aws-beanstalk-deploy@master
