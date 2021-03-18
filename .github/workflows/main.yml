@@ -56,21 +56,18 @@ jobs:
           tags: ldcamachoc/docker-react:1.0.0,ldcamachoc/docker-react:latest
           push: true
       #AWS  
-      # - 
-      #   name: Deploy to AWS Elastic Beanstalk
-      #   uses: Amraneze/aws-beanstalk-deploy@master
-      #   with:
-      #     region: "us-east-1"
-      #     environment_name: "docker-react-env"
-      #     application_name: "docker-react-app"
-      #     aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      #     aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      #     s3_bucket_name: "elasticbeanstalk-us-east-1-189137563013"
-      #     s3_file_path: "docker-react2"
-      #     ebs_version_label: "1.0.0"
-      #     ebs_description: "First Version"
-      #     ebs_wait_for_env_to_be_green: true
+      - 
+        name: Deploy to AWS Elastic Beanstalk
+        uses: Amraneze/aws-beanstalk-deploy@master
+        with:
+          region: "us-east-1"
+          environment_name: "Dockerreactapp2-env"
+          application_name: "docker-react-app2"
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          s3_bucket_name: "elasticbeanstalk-us-east-1-189137563013"
+          s3_file_path: "docker-react-folder"        
       # -
       #   name: test
       #   run: docker run -e CI=true ldcamachoc/docker-react:1.0.0 npm run test
-        #run: npm run test
+      #   run: npm run test
