@@ -58,7 +58,7 @@ jobs:
       #AWS
       - name: Generate deployment package
         if: success()
-        run: zip -r deploy.zip ./*
+        run: zip -r deploy.zip ./* -x "**node_modules**"
 
       - name: Deploy to EB
         if: success()
@@ -68,7 +68,7 @@ jobs:
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           application_name: docker-react-app-5  
           environment_name: Dockerreactapp5-env
-          version_label: 7
+          version_label: 1
           region: us-east-1
           deployment_package: deploy.zip
       # - 
