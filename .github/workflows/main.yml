@@ -77,7 +77,7 @@ jobs:
         if: success()
         uses: Amraneze/aws-beanstalk-deploy@master
         with:
-          region: "us-east-1"
+          region: us-east-1
           environment_name: Dockerreactapp6-env
           application_name: docker-react-app6
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
